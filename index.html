@@ -9,7 +9,22 @@
 
 <body>
     <script>
-        
+        function addUpTo(n) {
+            let total = 0
+            for (let i = 1; i <= n; i++) {
+                total += i
+            }
+            return total
+        }
+
+        function testPerformance(callback) {
+            let t1 = performance.now()
+            callback()
+            let t2 = performance.now()
+            console.log(`Time: ${(t2 - t1)}ms`)
+        }
+
+        testPerformance(() => addUpTo(6))
     </script>
 </body>
 
