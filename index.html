@@ -17,6 +17,10 @@
             return total
         }
 
+        function addUpTo2(n) {
+            return n * (n + 1) / 2
+        }
+
         function testPerformance(callback) {
             let t1 = performance.now()
             callback()
@@ -24,7 +28,54 @@
             console.log(`Time: ${(t2 - t1)}ms`)
         }
 
-        testPerformance(() => addUpTo(6))
+        testPerformance(() => addUpTo(10000000))
+        testPerformance(() => addUpTo2(10000000))
+
+
+        // time complexity - O(n^2)
+        // try to avoid nested loops - indexOf is some kind on nested loop
+        function same(array1, array2) {
+            if (array1.length != array2.length) {
+                return false
+            }
+            for (let i = 0; i < array1.length; i++) {
+                let correctIndex = array2.indexOf(array1[i] ** 2)
+                if (correctIndex === -1) {
+                    return false
+                }
+                array2.splice(correctIndex, 1)
+            }
+            return true
+        }
+
+
+        //time complexity - O(n)
+        function same2(arr1, arr2) {
+            let numbersFrequency1 = {}
+            for (let i = 0; i < arr1.length; i++) {
+                numbersFrequency1[arr1[i] ** 2] = numbersFrequency1[arr1[i] ** 2]++ || 1
+            }
+            for (let i = 0; i < arr2.length; i++) {
+                if (numbersFrequency1.hasOwnProperty(arr2[i]) && numbersFrequency1[arr2[i]] === 1) {
+                    delete numbersFrequency1[arr2[i]]
+                } else if (numbersFrequency1.hasOwnProperty(arr2[i])) {
+                    numbersFrequency1[arr2[i]] -= 1
+                }
+                else {
+                    return false
+                }
+            }
+            if (Object.keys(numbersFrequency1).length !== 0) {
+                return false
+            }
+            return true
+        }
+        console.log(same2([1, 2, 3], [1, 4, 9]))
+        console.log(same2([1, 2, 3], [4, 1, 9]))
+        console.log(same2([1, 2, 3], [4, 1, 1, 9]))
+        console.log(same2([1, 2, 3], [12, 5, 3]))
+
+
     </script>
 </body>
 

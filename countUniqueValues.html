@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function countUniqueValues(arr) {
+            let numberOfUniqueNumbers = 0
+            let left = 0
+            let right = arr.length - 1
+            while (left <= arr.length - 1) {
+                if (arr[left] === arr[right] && left <= right) {
+                    left = right + 1
+                    right = arr.length - 1
+                    numberOfUniqueNumbers++
+                } else {
+                    right--
+                }
+            }
+            return numberOfUniqueNumbers
+        }
+        console.log(countUniqueValues([1, 1, 1, 1, 1, 2]))
+        console.log(countUniqueValues([1, 1, 1, 2, 3, 3, 4, 5, 10, 10, 15])) // 7
+        console.log(countUniqueValues([1]))
+    </script>
+</body>
+
+</html>
