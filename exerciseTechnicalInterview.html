@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function swap(array, a, b) {
+            let tmp = array[a]
+            array[a] = array[b]
+            array[b] = tmp
+        }
+
+        function arrange(array) {
+            let left = 0
+            let right = array.length - 1
+            let numberOfZeros = 0
+            let numberOfNegativeNumbers = 0
+
+            while (left < right) {
+                if (array[left] > 0 && array[right] < 0) {
+                    swap(array, left, right)
+                    numberOfNegativeNumbers++
+                    left++
+                    right--
+                } else if (array[left] === 0) {
+                    array.splice(left, 1)
+                    right--
+                    numberOfZeros++
+                } else if (array[right] === 0) {
+                    array.splice(right, 1)
+                    right--
+                    numberOfZeros++
+                } else if (array[left] < 0) {
+                    numberOfNegativeNumbers++
+                    left++
+                } else if (array[right] > 0) {
+                    right--
+                }
+            }
+
+            array.splice(numberOfNegativeNumbers, 0, ...Array(numberOfZeros).fill(0))
+            console.log(array)
+        }
+
+        arrange([0, 10, -89, 1, 0, -1, 10, -10, 0, 0, 900, 90, -900, -5])
+        arrange([-10, 0, 0, 900, 90, -900, -5])
+        arrange([0, -10, 89, 1, 0, -1, 10, 90, -900, -5])
+
+    </script>
+</body>
+
+</html>
